@@ -1,20 +1,14 @@
 import { onBeforeMount, reactive, ref, watch } from "vue";
-import GlobalPie from "@/components/GlobalPie.vue";
-import GlobalBar from "@/components/GlobalBar.vue";
-import userIcon from "@/assets/users.svg";
+
 export default {
-  name: "HelloWorld",
-  components: {
-    GlobalPie,
-    GlobalBar,
-  },
+  name: "QuoraLine",
+  components: {},
   setup() {
-    console.log("l");
+    console.log("quoraLine");
+
     const categoryData = ref({});
     const keysArray = ref([]);
     const valuesArray = ref([]);
-    const userData = ref({});
-    const totalUser = ref();
     // const key = ref(Date.now());
 
     const showChart = ref(false);
@@ -23,7 +17,7 @@ export default {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "http://10.20.3.173:8090/logging/eventCountForCategories/like/global"
+            "http://10.20.3.173:8090/logging/eventCountByServiceApp/quora"
           );
           const data = await response.json();
           categoryData.value = data;
@@ -39,27 +33,8 @@ export default {
         }
       };
 
-      const fetchServiceApp = async () => {
-        const res = await fetch(
-          "http://10.20.3.173:8090/logging/distinctUsersForEachServiceApp/global"
-        );
-        const data1 = await res.json();
-        userData.value = data1;
-        console.log(userData.value);
-      };
       fetchData();
-      fetchServiceApp();
-      fetchTotalUsers();
     });
-
-    const fetchTotalUsers = async () => {
-      const res = await fetch(
-        "http://10.20.3.173:8090/logging/registeredUsers/global"
-      );
-      const data1 = await res.text();
-      totalUser.value = data1;
-      console.log(totalUser.value);
-    };
 
     console.log("he", keysArray.value, valuesArray.value);
     const options = reactive({
@@ -69,12 +44,7 @@ export default {
       xaxis: {
         categories: keysArray.value,
         title: {
-          text: "Category", // Change this to your desired X-axis label
-        },
-      },
-      yaxis: {
-        title: {
-          text: "Likes", // Change this to your desired Y-axis label
+          text: "Event type", // Change this to your desired X-axis label
         },
       },
     });
@@ -102,11 +72,9 @@ export default {
       options,
       series,
       categoryData,
-      // key,
+      keysArray,
       showChart,
-      userData,
-      totalUser,
-      userIcon,
+      valuesArray,
     };
   },
 };
