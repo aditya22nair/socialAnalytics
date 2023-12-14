@@ -2,6 +2,7 @@ import { onBeforeMount, reactive, ref, watch } from "vue";
 import GlobalPie from "@/components/GlobalPie.vue";
 import GlobalBar from "@/components/GlobalBar.vue";
 import userIcon from "@/assets/users.svg";
+import router from "@/router";
 export default {
   name: "HelloWorld",
   components: {
@@ -9,7 +10,6 @@ export default {
     GlobalBar,
   },
   setup() {
-    console.log("l");
     const categoryData = ref({});
     const keysArray = ref([]);
     const valuesArray = ref([]);
@@ -27,12 +27,11 @@ export default {
           );
           const data = await response.json();
           categoryData.value = data;
-          console.log(categoryData.value);
 
           keysArray.value = Object.keys(categoryData.value);
           valuesArray.value = Object.values(categoryData.value);
 
-          console.log(keysArray.value, valuesArray.value);
+          //console.log("global", keysArray.value, valuesArray.value);
           showChart.value = true;
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -45,7 +44,6 @@ export default {
         );
         const data1 = await res.json();
         userData.value = data1;
-        console.log(userData.value);
       };
       fetchData();
       fetchServiceApp();
@@ -58,10 +56,7 @@ export default {
       );
       const data1 = await res.text();
       totalUser.value = data1;
-      console.log(totalUser.value);
     };
-
-    console.log("he", keysArray.value, valuesArray.value);
     const options = reactive({
       chart: {
         id: "vuechart-example",
@@ -74,7 +69,7 @@ export default {
       },
       yaxis: {
         title: {
-          text: "Likes", // Change this to your desired Y-axis label
+          text: "Most Popular", // Change this to your desired Y-axis label
         },
       },
     });
@@ -87,16 +82,17 @@ export default {
     ]);
 
     watch(keysArray, (newKeys) => {
-      console.log("watch", newKeys);
       options.xaxis.categories = newKeys;
-      // key.value = Date.now();
-      console.log("watch2", options.xaxis.categories);
     });
 
     // Watch for changes in valuesArray and update series accordingly
     watch(valuesArray, (newValues) => {
       series.value[0].data = newValues;
     });
+
+    const routeMe = (routeLink) => {
+      router.push(routeLink);
+    };
 
     return {
       options,
@@ -107,6 +103,7 @@ export default {
       userData,
       totalUser,
       userIcon,
+      routeMe,
     };
   },
 };

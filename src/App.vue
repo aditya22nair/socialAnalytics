@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/" class="btn">Global</router-link>
     |
     <router-link to="/facebook" class="btn">Facebook</router-link>
@@ -7,11 +7,43 @@
     <router-link to="/instagram" class="btn">Instagram</router-link>
     |
     <router-link to="/quora" class="btn">Quora</router-link>
-  </nav>
-  <h1>Analytics Dashboard</h1>
+  </nav> -->
+  <div class="home-btn" @click="routeMe('/')">
+    <img class="icon" :src="home" />
+  </div>
+  <h1 class="main-title">{{ currentProvider }} Analytics Dashboard</h1>
   <router-view> </router-view>
 </template>
-<script></script>
+<script>
+import home from "@/assets/home.svg";
+import router from "@/router";
+import { watch, ref } from "vue";
+
+export default {
+  setup() {
+    const routeMe = (routeLink) => {
+      router.push(routeLink);
+    };
+    const currentProvider = ref("");
+    watch(router.currentRoute, () => {
+      if (router.currentRoute.value.fullPath == "/facebook") {
+        currentProvider.value = "Facebook";
+      } else if (router.currentRoute.value.fullPath == "/instagram") {
+        currentProvider.value = "Instagram";
+      } else if (router.currentRoute.value.fullPath == "/quora") {
+        currentProvider.value = "Quora";
+      } else {
+        currentProvider.value = "Global";
+      }
+    });
+    return {
+      home,
+      routeMe,
+      currentProvider,
+    };
+  },
+};
+</script>
 
 <style>
 #app {
@@ -51,5 +83,19 @@ nav a {
 }
 body {
   margin: 0;
+  min-height: 100vh;
+  background-color: #272953;
+}
+.main-title {
+  margin-top: 2rem;
+}
+.icon {
+  width: 1.5rem;
+}
+.home-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  cursor: pointer;
 }
 </style>

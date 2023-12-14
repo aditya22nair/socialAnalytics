@@ -1,28 +1,27 @@
 <template>
-  <div class="comp-title">User Info</div>
+  <!-- <div class="comp-title">User Info</div> -->
   <div class="global">
     <div class="roww">
-      <div class="card">
+      <div class="card" @click="routeMe('/instagram')">
         <h2>Instagram</h2>
         <div>
-          <img :src="userIcon" class="user-icon" />{{ userData.instagram }} 
+          <img :src="userIcon" class="user-icon" />{{ userData.instagram }}
         </div>
       </div>
-      <div class="card">
+      <div class="card" @click="routeMe('/facebook')">
         <h2>Facebook</h2>
         <div>
-          <img :src="userIcon" class="user-icon" />{{ userData.facebook }}</div>
+          <img :src="userIcon" class="user-icon" />{{ userData.facebook }}
+        </div>
       </div>
-      <div class="card">
+      <div class="card" @click="routeMe('/quora')">
         <h2>Quora</h2>
-        <div>
-          <img :src="userIcon" class="user-icon" />{{ userData.quora }}</div>
+        <div><img :src="userIcon" class="user-icon" />{{ userData.quora }}</div>
         <!-- <p>9</p>   -->
       </div>
-      <div class="card">
+      <div class="card" @click="routeMe('/')">
         <h2>Total</h2>
-        <div>
-          <img :src="userIcon" class="user-icon" />{{ totalUser }}</div>
+        <div><img :src="userIcon" class="user-icon" />{{ totalUser }}</div>
         <!-- <p>9</p>   -->
       </div>
     </div>
@@ -30,7 +29,7 @@
     <apexchart
       class="globalBar"
       v-if="showChart"
-      width="500"
+      width="700"
       type="bar"
       :options="options"
       :series="series"
@@ -60,13 +59,15 @@ body {
 }
 .card {
   display: flex;
-  background-color: white;
+  background-color: lightcyan;
   border-radius: 8px;
   height: 20%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
+  cursor: pointer;
 }
+
 h2 {
   margin: 0 0.5rem;
   color: #333;
@@ -117,7 +118,7 @@ h1 {
 }
 .user-icon {
   width: 1.3rem;
-  background-color: white;
+  background-color: lightcyan;
   margin: 0 0.5rem;
 }
 </style>

@@ -4,8 +4,6 @@ export default {
   name: "FacebookPie",
   components: {},
   setup() {
-    console.log("facePie");
-
     const categoryData = ref({});
     const keysArray = ref([]);
     const valuesArray = ref([]);
@@ -22,6 +20,7 @@ export default {
           keysArray.value = Object.keys(categoryData.value);
           valuesArray.value = Object.values(categoryData.value);
           showChart.value = true;
+          console.log("facebook - pie", keysArray.value, valuesArray.value);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -30,7 +29,6 @@ export default {
       fetchData();
     });
 
-    console.log("he", keysArray.value, valuesArray.value);
     const options = reactive({
       chart: {
         id: "vuechart-example",

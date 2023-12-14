@@ -4,7 +4,7 @@ export default {
   name: "QuoraPie",
   components: {},
   setup() {
-    console.log("quoraPie");
+    //console.log("quoraPie");
 
     const categoryData = ref({});
     const keysArray = ref([]);
@@ -30,7 +30,7 @@ export default {
       fetchData();
     });
 
-    console.log("he", keysArray.value, valuesArray.value);
+    //console.log("he", keysArray.value, valuesArray.value);
     const options = reactive({
       chart: {
         id: "vuechart-example",

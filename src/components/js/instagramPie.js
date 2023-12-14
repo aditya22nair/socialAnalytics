@@ -4,8 +4,6 @@ export default {
   name: "InstagramPie",
   components: {},
   setup() {
-    console.log("facePie");
-
     const categoryData = ref({});
     const keysArray = ref([]);
     const valuesArray = ref([]);
@@ -30,7 +28,7 @@ export default {
       fetchData();
     });
 
-    console.log("he", keysArray.value, valuesArray.value);
+    //console.log("InstagramPie", keysArray.value, valuesArray.value);
     const options = reactive({
       chart: {
         id: "vuechart-example",

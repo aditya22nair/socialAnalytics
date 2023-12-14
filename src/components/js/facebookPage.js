@@ -9,7 +9,6 @@ export default {
     FacebookPie,
   },
   setup() {
-    console.log("l");
     const categoryData = ref({});
     const keysArray = ref([]);
     const valuesArray = ref([]);
@@ -25,12 +24,11 @@ export default {
           );
           const data = await response.json();
           categoryData.value = data;
-          console.log(categoryData.value);
 
           keysArray.value = Object.keys(categoryData.value);
           valuesArray.value = Object.values(categoryData.value);
 
-          console.log(keysArray.value, valuesArray.value);
+          console.log("facebook - line", keysArray.value, valuesArray.value);
           showChart.value = true;
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -39,8 +37,6 @@ export default {
 
       fetchData();
     });
-
-    console.log("he", keysArray.value, valuesArray.value);
     const options = reactive({
       chart: {
         id: "vuechart-example",
@@ -66,10 +62,7 @@ export default {
     ]);
 
     watch(keysArray, (newKeys) => {
-      console.log("watch", newKeys);
       options.xaxis.categories = newKeys;
-      // key.value = Date.now();
-      console.log("watch2", options.xaxis.categories);
     });
 
     // Watch for changes in valuesArray and update series accordingly
